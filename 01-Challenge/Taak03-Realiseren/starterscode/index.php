@@ -1,5 +1,6 @@
 <?php
 // Je hebt een database nodig om dit bestand te gebruiken....
+include 'database.php';
 
 if (!isset($db_conn)) { //deze if-statement checked of er een database-object aanwezig is. Kun je laten staan.
     return;
@@ -53,7 +54,6 @@ if (is_object($db_conn->query($sql))) { //deze if-statement controleert of een s
         <h1>Quattro Cottage Rental</h1>
     </header>
     <main>
-    <H1>iiwiwiwwiiw</H1>
         <div class="left">
             <div id="mapid"></div>
             <div class="book">
