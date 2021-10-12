@@ -6,11 +6,12 @@ if (!isset($db_conn)) { //deze if-statement checked of er een database-object aa
     return;
 }
 
+
 $database_gegevens = null;
 $poolIsChecked = false;
 $bathIsChecked = false;
 
-$sql = ""; //Selecteer alle huisjes uit de database
+$sql = "SELECT FROM homes"; //Selecteer alle huisjes uit de database
 
 if (isset($_GET['filter_submit'])) {
 
@@ -47,6 +48,7 @@ if (is_object($db_conn->query($sql))) { //deze if-statement controleert of een s
     <!-- Make sure you put this AFTER Leaflet's CSS -->
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
     <link href="css/style1.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Source+Sans+Pro:wght@200&display=swap" rel="stylesheet">
 </head>
 
 <body>
