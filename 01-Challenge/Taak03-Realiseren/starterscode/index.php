@@ -10,22 +10,52 @@ if (!isset($db_conn)) { //deze if-statement checked of er een database-object aa
 $database_gegevens = null;
 $poolIsChecked = false;
 $bathIsChecked = false;
+$bbqIsChecked = false;
+$wifiIsChecked = false;
+$fireplaceIsChecked = false;
+$dishwasherIsChecked = false;
+$bikeIsChecked = false;
 
-$sql = "SELECT FROM homes"; //Selecteer alle huisjes uit de database
+
+$sql = "SELECT * FROM `homes`"; //Selecteer alle huisjes uit de database
+
 
 if (isset($_GET['filter_submit'])) {
 
     if ($_GET['faciliteiten'] == "ligbad") { // Als ligbad is geselecteerd filter dan de zoekresultaten
         $bathIsChecked = true;
 
-        $sql = ""; // query die zoekt of er een BAD aanwezig is.
+        $sql = "SELECT * FROM `homes` WHERE bath_present = 1 "; // query die zoekt of er een BAD aanwezig is.
     }
 
     if ($_GET['faciliteiten'] == "zwembad") {
         $poolIsChecked = true;
 
-        $sql = ""; // query die zoekt of er een ZWEMBAD aanwezig is.
+        $sql = "SELECT * FROM `homes` WHERE pool_present = 1"; 
     }
+    if ($_GET['faciliteiten'] == "bbq") {
+        $bbqIsChecked = true;
+
+        $sql = "SELECT * FROM `homes` WHERE bbq_present = 1"; 
+    }
+    if ($_GET['faciliteiten'] == "wifi") {
+        $wifiIsChecked = true;
+
+        $sql = "SELECT * FROM `homes` WHERE wifi_present = 0"; 
+    if ($_GET['faciliteiten'] == "fireplace") {
+        $fireplaceIsChecked = true;
+
+        $sql = "SELECT * FROM `homes` WHERE fireplace_present = 1";
+    }
+    if ($_GET['faciliteiten'] == "dishwasher") {
+        $dishwasherIsChecked = true;
+
+        $sql = "SELECT * FROM `homes` WHERE dishwasher_present = 0"; 
+    }
+    if ($_GET['faciliteiten'] == "bike") {
+        $dishwasherIsChecked = true;
+
+        $sql = "SELECT * FROM `homes` WHERE bike_rental = 1";
 }
 
 
@@ -49,14 +79,18 @@ if (is_object($db_conn->query($sql))) { //deze if-statement controleert of een s
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
     <link href="css/style1.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Source+Sans+Pro:wght@200&display=swap" rel="stylesheet">
-</head>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
 
+</head>
+ 
 <body>
     <header>
         <h1>Quattro Cottage Rental</h1>
     </header>
     <main>
         <div class="left">
+            <div class="filter-box"></div>
             <div id="mapid"></div>
             <div class="book">
                 <h3>Reservering maken</h3>
@@ -93,7 +127,7 @@ if (is_object($db_conn->query($sql))) { //deze if-statement controleert of een s
         </div>
         <div class="right">
             <div class="filter-box">
-                <form class="filter-form">
+                <form class="filter-form"> 
                     <div class="form-control">
                         <a href="index.php">Reset Filters</a>
                     </div>
@@ -155,14 +189,13 @@ if (is_object($db_conn->query($sql))) { //deze if-statement controleert of een s
     <script>
         // De verschillende markers moeten geplaatst worden. Vul de longitudes en latitudes uit de database hierin
         var coordinates = [
-
-
+            [52.44902, 4.61001],[52.99864,6.64928],[52.30340,6.36800],[50.89720,5.90979]
         ];
 
-        var bubbleTexts = [
+        var bubbleTexts = [2
+            "Ijmuiden cottage", "Assen bungalo", "Espolo entree", "Weustenrade woning"
+        ];    
 
-
-        ];
     </script>
     <script src="js/place_markers.js"></script>
 </body>
